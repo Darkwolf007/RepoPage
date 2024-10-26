@@ -1,14 +1,11 @@
 window.onload = function() {
-    fetch('/data/cards.xlsx')
-        .then(response => response.arrayBuffer())
+    fetch('data/cards.json')
+        .then(response => response.json())
         .then(data => {
-            const workbook = XLSX.read(data, { type: 'array' });
-            const sheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[sheetName];
-            const json = XLSX.utils.sheet_to_json(worksheet);
-            displayCards(json);
+            // Use the JSON data directly
+            displayCards(data);
         })
-        .catch(error => console.error('Error loading Excel file:', error));
+        .catch(error => console.error('Error loading JSON file:', error));
 
     // Dark/Light Mode Toggle
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
