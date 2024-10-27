@@ -3,48 +3,56 @@
         "Name": "webgl+gh",
         "Badge": ".gh",
         "Description": "description",
-        "Tag": "architecture"
+        "Tag": "architecture",
+        "Train": "Snippet"
     },
     {
         "Name": "Decimator",
         "Badge": ".blend, .py",
         "Description": "description",
-        "Tag": "sustainability"
+        "Tag": "sustainability",
+        "Train": "Snippet"
     },
     {
         "Name": "shoebox optimization",
         "Badge": ".gh , .cs",
         "Description": "description",
-        "Tag": "creativecoding"
+        "Tag": "creativecoding",
+        "Train": "Snippet"
     },
     {
         "Name": "UTCI analysis",
         "Badge": ".gh",
         "Description": "description",
-        "Tag": "ai"
+        "Tag": "ai",
+        "Train": "Blog"
     },
     {
         "Name": "LORA + monocular depth",
         "Badge": "st",
         "Description": "description",
-        "Tag": "urban"
+        "Tag": "urban",
+        "Train": "Blog"
     },
     {
         "Name": "gh2GraphQL",
         "Badge": "st",
         "Description": "description",
-        "Tag": "automation"
+        "Tag": "automation",
+        "Train": "News"
     },
     {
         "Name": "FLS Egress",
         "Badge": ".rvt , .cs",
         "Description": "description",
-        "Tag": "immersive"
+        "Tag": "immersive",
+        "Train": "News"
     },
     {
         "Name": "Pdf Extractor",
         "Badge": ".py",
         "Description": "description",
-        "Tag": ""
+        "Tag": "immersive",
+        "Train": "Showcase"
     }
 ]
