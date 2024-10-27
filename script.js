@@ -5,19 +5,14 @@ window.onload = function() {
             return response.json();
         })
         .then(data => {
-            console.log("Data loaded:", data); // Confirm data load
+            console.log("Data loaded:", data);
             displayCards(data);
-            populateDropdowns(data); // Populate dropdowns after data is loaded
+            populateDropdowns(data);
+            setEventListeners(data);  // Set up event listeners for filtering
         })
         .catch(error => console.error('Error loading JSON file:', error));
 
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
-
-    // Event listeners for filtering
-    document.getElementById('typeFilter').addEventListener('change', () => filterCards(data));
-    document.getElementById('toolFilter').addEventListener('change', () => filterCards(data));
-    document.getElementById('trainFilter').addEventListener('change', () => filterCards(data));
-    document.getElementById('clearFilters').addEventListener('click', () => clearFilters(data));
 };
 
 function displayCards(data) {
@@ -32,9 +27,8 @@ function displayCards(data) {
 
         const badge = document.createElement('div');
         badge.className = 'badge';
-        badge.textContent = `${item.Badge} `;
+        badge.textContent = item.Badge;
 
-        // Set badge color based on the tag
         const colors = {
             'sustainability': '#70cd70',
             'urban': '#eb6860',
@@ -64,14 +58,12 @@ function populateDropdowns(data) {
     const toolSet = new Set();
     const trainSet = new Set();
 
-    // Collect unique values
     data.forEach(item => {
         typeSet.add(item.Tag);
         toolSet.add(item.Badge);
         trainSet.add(item.Train);
     });
 
-    // Populate dropdowns
     addOptionsToDropdown('typeFilter', typeSet);
     addOptionsToDropdown('toolFilter', toolSet);
     addOptionsToDropdown('trainFilter', trainSet);
@@ -79,13 +71,21 @@ function populateDropdowns(data) {
 
 function addOptionsToDropdown(id, values) {
     const dropdown = document.getElementById(id);
+    dropdown.innerHTML = `<option value="">${dropdown.options[0].textContent}</option>`;
+
     values.forEach(value => {
         const option = document.createElement('option');
         option.value = value;
         option.textContent = value;
         dropdown.appendChild(option);
     });
-    console.log(`Dropdown ${id} populated with values:`, values); // Verify values
+}
+
+function setEventListeners(data) {
+    document.getElementById('typeFilter').addEventListener('change', () => filterCards(data));
+    document.getElementById('toolFilter').addEventListener('change', () => filterCards(data));
+    document.getElementById('trainFilter').addEventListener('change', () => filterCards(data));
+    document.getElementById('clearFilters').addEventListener('click', () => clearFilters(data));
 }
 
 function filterCards(data) {
@@ -94,19 +94,28 @@ function filterCards(data) {
     const selectedTrain = document.getElementById('trainFilter').value;
 
     const filteredData = data.filter(item => {
-        return (selectedType === '' || item.Tag === selectedType) &&
-               (selectedTool === '' || item.Badge === selectedTool) &&
-               (selectedTrain === '' || item.Train === selectedTrain);
+        return (
+            (selectedType === '' || item.Tag === selectedType) &&
+            (selectedTool === '' || item.Badge === selectedTool) &&
+            (selectedTrain === '' || item.Train === selectedTrain)
+        );
     });
 
-    displayCards(filteredData);
+    const container = document.getElementById('cardContainer');
+    container.innerHTML = ''; // Clear existing cards
+
+    if (filteredData.length > 0) {
+        displayCards(filteredData);
+    } else {
+        container.innerHTML = '<p>No matching items found.</p>'; // Message for no results
+    }
 }
 
 function clearFilters(data) {
     document.getElementById('typeFilter').value = '';
     document.getElementById('toolFilter').value = '';
     document.getElementById('trainFilter').value = '';
-    displayCards(data);
+    displayCards(data); // Show all cards
 }
 
 function toggleTheme() {

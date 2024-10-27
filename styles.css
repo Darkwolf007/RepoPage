@@ -68,30 +68,52 @@ body.dark-mode .navbar {
 
 body.dark-mode .theme-icon {
     color: #f2f2ef;
+    border: 1px solid #444;
+}
+
+.clear-icon {
+    background: none;
+    border: 1px solid #d0d0ce;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.3s, background 0.3s;
+    height: 36px;
+}
+
+body.dark-mode .clear-icon {
+    color: #f2f2ef;
+    border: 1px solid #444;
 }
 
 /* Dropdown Styling */
 .filters select {
-    background-color: transparent;
-    color: #1a1a1a;
+    background-color: #ffffff; /* Light mode background */
+    color: #1a1a1a; /* Light mode text color */
     border: 1px solid #d0d0ce;
     padding: 8px 12px;
     font-size: 14px;
     border-radius: 4px;
     height: 36px;
-    transition: all 0.3s;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.filters select:hover {
+    background-color: #e9e9e9; /* Hover effect in light mode */
 }
 
 body.dark-mode .filters select {
-    color: #f2f2ef;
+    background-color: #333; /* Dark mode background */
+    color: #f2f2ef; /* Dark mode text color */
     border: 1px solid #444;
 }
 
-/* Hover Effect for Icon and Dropdown */
-.filters select:hover,
-.theme-icon:hover {
-    background-color: #f2f2ef;
-    color: #1a1a1a;
+body.dark-mode .filters select:hover {
+    background-color: #444; /* Hover effect in dark mode */
 }
 
 /* Grid Container - Hierarchical Bento Grid */
@@ -177,75 +199,47 @@ body.dark-mode .card p {
     color: #cccccc;
 }
 
-/* Responsive Layout */
+@media (max-width: 768px) {
+    .navbar h1 {
+        font-size: 24px;
+        width: 100%;
+        text-align: center;
+    }
 
-/* Tablet Screens */
-@media (max-width: 1024px) {
+    /* Hide dropdowns in navbar */
+    .filters {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        border-top: 1px solid #e0e0df;
+        padding: 5px;
+        justify-content: space-evenly;
+    }
+
+    body.dark-mode .filters {
+        background-color: #333;
+        border-top: 1px solid #444;
+    }
+
+    /* Adjust grid layout to fewer columns on mobile */
     .grid-container {
-        grid-template-columns: repeat(3, 1fr);
-        grid-auto-rows: 180px;
-        gap: 16px;
+        grid-template-columns: repeat(2, 1fr);
         padding: 20px;
     }
 
-    .grid-container .card:nth-child(6n+1) {
-        grid-column: span 3;
-        grid-row: span 1;
+    .filters select, .clear-icon {
+        flex: 1;
+        margin: 0 5px;
     }
 
-    .grid-container .card:nth-child(6n+2),
-    .grid-container .card:nth-child(6n+3) {
-        grid-column: span 1;
-        grid-row: span 1;
-    }
-}
-
-/* Large Mobile Screens */
-@media (max-width: 768px) {
-    .grid-container {
-        grid-template-columns: repeat(2, 1fr);
-        grid-auto-rows: 160px;
-        gap: 12px;
-        padding: 10px;
-    }
-
-    .grid-container .card:nth-child(6n+1) {
-        grid-column: span 2;
-        grid-row: span 1;
-    }
-
-    .grid-container .card:nth-child(6n+2),
-    .grid-container .card:nth-child(6n+3) {
-        grid-column: span 1;
-        grid-row: span 1;
-    }
-}
-
-/* Small Mobile Screens */
-@media (max-width: 480px) {
-    .grid-container {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 140px;
-        gap: 8px;
-        padding: 5px;
-    }
-
-    .grid-container .card:nth-child(6n+1),
-    .grid-container .card:nth-child(6n+2),
-    .grid-container .card:nth-child(6n+3) {
-        grid-column: span 1;
-        grid-row: span 1;
-    }
-
-    .navbar h1 {
-        font-size: 24px;
-    }
-
+    /* Smaller font for mobile */
     .card h2 {
         font-size: 18px;
     }
 
     .card p {
-        font-size: 13px;
+        font-size: 14px;
     }
 }
